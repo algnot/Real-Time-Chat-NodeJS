@@ -20,7 +20,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
     console.log('Connected to Database..');
     
     app.get('/', function(req, res) {
-        res.render( 'private/index.ejs');
+        res.render(__dirname + '/private/index.ejs');
     })
 
     app.get('/join-room' , function(req,res){
