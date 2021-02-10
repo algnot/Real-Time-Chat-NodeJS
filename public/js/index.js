@@ -69,11 +69,6 @@ function sendMessage(room){
     } 
 }
 
-function reChat(){
-    load('#chat-box','/getChat?room=<%= room %>')
-    var reChat = setInterval(reChat, 500);
-}
-
 function scroll(){
     jQuery( function(){
         var pre = jQuery("#chat-box");

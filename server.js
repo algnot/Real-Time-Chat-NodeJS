@@ -83,6 +83,30 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
         .catch(err => console.error(err))
     })
 
+    app.get('/getPrimaryChat' , function(req,res){
+        var randomString = Array(12).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+        let query = {
+            "room-key" : randomString
+        };
+        
+        db.collection('room').insertOne(query)
+        .then(result=>{
+            db.createCollection(randomString)
+            .then(result=>{
+                res.redirect('/join-room?r='+randomString);
+            })
+            .catch(err=>{
+                res.status(err.status || 500);
+                res.render(__dirname + '/public/500.ejs')
+            })
+        })
+        .catch(err=>{
+            res.status(err.status || 500);
+            res.render(__dirname + '/public/500.ejs')
+        })
+
+    })
+
     app.use(function(err, req, res, next){
         res.status(err.status || 500);
         res.render(__dirname + '/public/500.ejs')
