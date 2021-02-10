@@ -2,6 +2,7 @@ let express = require('express');
 let parser = require('body-parser');
 let app = express();
 let url = require('url');
+let PORT = process.env.PORT || 8080;
 
 const { MongoClient } = require('mongodb');
 let connectionString = 'mongodb+srv://node-js-database:KLQQb4tSirWW6aez@cluster0.knqj1.mongodb.net/node-js-database?retryWrites=true&w=majority';
@@ -117,8 +118,8 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
         res.render(__dirname + '/public/404.ejs')
     })
     
-    app.listen(3000 , function(){
-        console.log('Server start at http://localhost:3000');
+    app.listen(PORT , function(){
+        console.log('Server start at http://localhost:8080');
     })
 
 })
