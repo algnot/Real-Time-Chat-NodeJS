@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index.ejs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="text-center text-black-100 mt-3"><b>public-link-room</b><div>
+    <div id="link-chat" class="text-muted"></div>
+    <div class="text-center text-black-100"><b>public-code-room</b><div>
+    <div class="text-muted"><%= room %> </div>
+    <div class="text-center text-black-100"><b>You are <span id="username"></span>.</b><div>
+    <div class="btn btn-primary mt-2" onclick="changUsername()">Chang you username</div>
+    
+    <center>
+        <div class="chat-box">
+            <% for(var i=0 ; i<data.length ; i++){ %>
+                <div class="string"><b>
+                    <%= data[i].username %></b> : <%= data[i].string %> 
+                    <span class="text-muted">(<%= data[i].time %>)</span>
+                </div> 
+            <% } %> 
+        </div>
+        <div class="control">
+            <input class="message" type="text" id="message">
+            <div class="btn btn-success" onclick="sendMessage('<%= room %>')">send</div>
+        </div>        
+    </center>
+
+    <script src="/js/index.js"></script>
+    
+    <script>
+        document.getElementById('link-chat').innerHTML = window.location.href;
+        checkCookie();
+        document.getElementById('username').innerHTML = getCookie('username');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
