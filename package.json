@@ -12,8 +12,9 @@
     "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mongodb": "^3.6.4"
-  }, 
+    "mongodb": "^3.6.4",
+    "nodemon": "^2.0.7"
+  },
   "engines": {
     "node": "15.8.0",
     "npm": "7.5.1"
