@@ -46,6 +46,9 @@ function changUsername(){
 function sendMessage(room){
     let message = document.getElementById('message').value;
     let username = getCookie('username');
+    let date = new Date();
+    let time = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+    time += +" - "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 
     if (message != "" && message != null) {
         fetch('/send', {
@@ -57,5 +60,23 @@ function sendMessage(room){
                 message: message
             })
         })
+        .then(res => {
+            if (res.ok) return res.json();
+        })
+        .then(response => {
+            window.location.reload();
+        })
     } 
+}
+
+function reChat(){
+    load('#chat-box','/getChat?room=<%= room %>')
+    var reChat = setInterval(reChat, 500);
+}
+
+function scroll(){
+    jQuery( function(){
+        var pre = jQuery("#chat-box");
+        pre.scrollTop( pre.prop("scrollHeight") );
+    });
 }

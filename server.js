@@ -34,7 +34,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
             if(Object.keys(result).length>0){
                 db.collection(idRoom).find().toArray()
                 .then(result => {
-                    res.status(404);
+                    res.status(200);
                     res.render(__dirname + '/private/room.ejs' , {data : result , room : idRoom} );
                 })
                 .catch( err =>{
@@ -55,7 +55,7 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
     app.post('/send',function(req,res){
         let date = new Date();
         let time = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-        time += +" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+        time += " - "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 
         let query = {
             username : req.body.username,
@@ -65,13 +65,22 @@ MongoClient.connect(connectionString, {useUnifiedTopology: true} , function (err
         
         db.collection(req.body.room).insertOne(query)
         .then(result => {
-            console.log(result);
+            res.json('Success')
         })
         .catch(err => {
-            res.status(err.status || 500);
-            res.render(__dirname + '/public/500.ejs')
+            res.json('500')
         })
 
+    })
+
+    app.get('/getChat' , function(req,res){
+        res.status(200);
+        let idRoom = url.parse(req.url , true).query.room;
+        db.collection(idRoom).find().toArray()
+        .then(result => {
+            res.render(__dirname + '/private/chat.ejs' , {data : result} );
+        })
+        .catch(err => console.error(err))
     })
 
     app.use(function(err, req, res, next){

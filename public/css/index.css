@@ -20,7 +20,7 @@ input{
 
 .string{
     text-align: left;
-    margin: 5px 0;
+    margin: -4px 0 0 0 ;
 }
 
 .message{
@@ -31,6 +31,13 @@ input{
 
 .control{
     width: 500px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control2{
     margin-top: 10px;
     display: flex;
     align-items: center;
